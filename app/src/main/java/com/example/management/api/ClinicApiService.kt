@@ -373,4 +373,25 @@ interface ClinicApiService {
         @Body request: LeaveSwapRequest,
         @Query("actorUserId") actorUserId: Long
     ): Response<Map<String, Any>>
+
+    // =========================================================================
+    // 9. PHÂN HỆ QUẢN TRỊ TÀI KHOẢN (ADMIN ACCOUNTS)
+    // =========================================================================
+    @GET("api/admin/accounts")
+    suspend fun getAllAccounts(
+        @Query("requesterId") requesterId: Long? = null
+    ): Response<List<UserAccountDto>>
+
+    @POST("api/admin/accounts")
+    suspend fun createAccount(
+        @Body request: CreateUserAccountRequest,
+        @Query("adminId") adminId: Long? = null
+    ): Response<UserAccountDto>
+
+    @PUT("api/admin/accounts/{id}/status")
+    suspend fun toggleAccountStatus(
+        @Path("id") id: Long,
+        @Body request: ToggleAccountStatusRequest,
+        @Query("adminId") adminId: Long? = null
+    ): Response<UserAccountDto>
 }

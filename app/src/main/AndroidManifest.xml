@@ -77,6 +77,11 @@
             android:name=".ui.StaffSchedulingActivity"
             android:exported="false" />
 
+        <!-- Phân hệ Quản trị hệ thống: Quản lý người dùng & Phân quyền -->
+        <activity
+            android:name=".ui.AdminAccountActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

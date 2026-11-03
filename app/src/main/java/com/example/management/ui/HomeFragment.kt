@@ -109,6 +109,10 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), StaffSchedulingActivity::class.java))
         }
 
+        binding.cardActionAdmin.setOnClickListener {
+            startActivity(Intent(requireContext(), AdminAccountActivity::class.java))
+        }
+
         binding.swipeRefreshHome.setOnRefreshListener {
             loadUpcomingAppointment()
         }

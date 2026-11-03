@@ -73,14 +73,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Mặc định: nếu là lễ tân, điều dưỡng hoặc quản trị viên thì vào tab Tiếp đón, ngược lại vào Home
-        val isStaffWithQueueAccess = user?.roles?.any {
-            it.contains("RECEPTIONIST", true) || it.contains("LE_TAN", true) ||
-            it.contains("NURSE", true) || it.contains("DIEU_DUONG", true) ||
-            it.contains("ADMIN", true)
-        } == true
+        // Phân quyền theo vai trò người dùng
+        val isAdmin = user?.roles?.any { it.contains("ADMIN", true) } == true
+        val isDoctor = user?.roles?.any { it.contains("DOCTOR", true) || it.contains("BAC_SI", true) } == true
+        val isNurse = user?.roles?.any { it.contains("NURSE", true) || it.contains("DIEU_DUONG", true) } == true
+        val isTechnician = user?.roles?.any { it.contains("TECHNICIAN", true) || it.contains("KTV", true) } == true
+        val isPharmacist = user?.roles?.any { it.contains("PHARMACIST", true) || it.contains("DUOC_SI", true) } == true
+        val isCashier = user?.roles?.any { it.contains("CASHIER", true) || it.contains("THU_NGAN", true) } == true
+        val isReceptionist = user?.roles?.any { it.contains("RECEPTIONIST", true) || it.contains("LE_TAN", true) } == true
+        val isStaff = isAdmin || isDoctor || isNurse || isTechnician || isPharmacist || isCashier || isReceptionist
+        val isPatient = !isStaff || user?.roles?.any { it.contains("PATIENT", true) || it.contains("BENH_NHAN", true) } == true
 
-        if (isStaffWithQueueAccess) {
+        // Phân quyền hiển thị các tab trên Bottom Navigation Bar
+        val navMenu = binding.bottomNav.menu
+        navMenu.findItem(R.id.nav_home)?.isVisible = true
+        navMenu.findItem(R.id.nav_reception)?.isVisible = isAdmin || isReceptionist || isNurse || isPatient
+        navMenu.findItem(R.id.nav_appointments)?.isVisible = isAdmin || isReceptionist || isDoctor || isPatient
+        navMenu.findItem(R.id.nav_records)?.isVisible = isAdmin || isDoctor || isNurse || isReceptionist || isPatient
+        navMenu.findItem(R.id.nav_reports)?.isVisible = isAdmin
+
+        // Mặc định: nếu là lễ tân hoặc điều dưỡng thì vào tab Tiếp đón, các vai trò khác vào Trang chủ
+        if (isReceptionist || isNurse) {
             selectNavigationTab(1)
         } else {
             replaceFragment(homeFragment)

@@ -36,26 +36,38 @@ class HomeFragment : Fragment() {
         val role = user?.roles?.firstOrNull() ?: "Người dùng"
         binding.tvUserSubtitle.text = "Vai trò: $role | Phòng khám Đa khoa CarePlus"
 
-        // Nút đặt lịch nhanh
+        // Phân quyền theo vai trò người dùng
+        val isAdmin = user?.roles?.any { it.contains("ADMIN", true) } == true
+        val isDoctor = user?.roles?.any { it.contains("DOCTOR", true) || it.contains("BAC_SI", true) } == true
+        val isNurse = user?.roles?.any { it.contains("NURSE", true) || it.contains("DIEU_DUONG", true) } == true
+        val isTechnician = user?.roles?.any { it.contains("TECHNICIAN", true) || it.contains("KTV", true) } == true
+        val isPharmacist = user?.roles?.any { it.contains("PHARMACIST", true) || it.contains("DUOC_SI", true) } == true
+        val isCashier = user?.roles?.any { it.contains("CASHIER", true) || it.contains("THU_NGAN", true) } == true
+        val isReceptionist = user?.roles?.any { it.contains("RECEPTIONIST", true) || it.contains("LE_TAN", true) } == true
+        val isStaff = isAdmin || isDoctor || isNurse || isTechnician || isPharmacist || isCashier || isReceptionist
+        val isPatient = !isStaff || user?.roles?.any { it.contains("PATIENT", true) || it.contains("BENH_NHAN", true) } == true
+
+        // 1. Nút Đặt lịch khám nhanh
+        binding.btnQuickBook.visibility = if (isAdmin || isReceptionist || isPatient) View.VISIBLE else View.GONE
         binding.btnQuickBook.setOnClickListener {
             startActivity(Intent(requireContext(), BookAppointmentActivity::class.java))
         }
 
+        // 2. Tiện ích Đặt lịch khám
+        binding.cardActionBook.visibility = if (isAdmin || isReceptionist || isDoctor || isPatient) View.VISIBLE else View.GONE
         binding.cardActionBook.setOnClickListener {
             startActivity(Intent(requireContext(), BookAppointmentActivity::class.java))
         }
 
-        val isTechnician = user?.roles?.any {
-            it.contains("TECHNICIAN", true) || it.contains("KTV", true)
-        } == true
+        // 3. Tiện ích Hồ sơ bệnh án
+        binding.cardActionRecords.visibility = if (isAdmin || isDoctor || isNurse || isReceptionist || isPatient) View.VISIBLE else View.GONE
+        binding.cardActionRecords.setOnClickListener {
+            (activity as? MainActivity)?.selectNavigationTab(3) // Chuyển sang tab Bệnh án
+        }
 
-        val isPharmacist = user?.roles?.any {
-            it.contains("PHARMACIST", true) || it.contains("DUOC_SI", true)
-        } == true
-
-        val isCashier = user?.roles?.any {
-            it.contains("CASHIER", true) || it.contains("THU_NGAN", true)
-        } == true
+        // 4. Tiện ích Trạm chuyên môn (Tiếp đón / Điều dưỡng / KTV / Dược sĩ / Thu ngân)
+        val showPrescriptionStation = isAdmin || isCashier || isPharmacist || isTechnician || isNurse || isReceptionist
+        binding.cardActionPrescriptions.visibility = if (showPrescriptionStation) View.VISIBLE else View.GONE
 
         when {
             isCashier -> {
@@ -70,14 +82,14 @@ class HomeFragment : Fragment() {
                 binding.tvActionPrescriptionTitle.text = "Cận Lâm Sàng"
                 binding.tvActionPrescriptionSubtitle.text = "Nhập kết quả xét nghiệm"
             }
+            isNurse -> {
+                binding.tvActionPrescriptionTitle.text = "Trạm Điều Dưỡng"
+                binding.tvActionPrescriptionSubtitle.text = "Đo & theo dõi sinh hiệu"
+            }
             else -> {
                 binding.tvActionPrescriptionTitle.text = "Bàn Tiếp Đón"
                 binding.tvActionPrescriptionSubtitle.text = "Cấp STT & hàng chờ"
             }
-        }
-
-        binding.cardActionRecords.setOnClickListener {
-            (activity as? MainActivity)?.selectNavigationTab(3) // Chuyển sang tab Bệnh án
         }
 
         binding.cardActionPrescriptions.setOnClickListener {
@@ -97,22 +109,32 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.cardActionReports.setOnClickListener {
-            (activity as? MainActivity)?.selectNavigationTab(4) // Chuyển sang tab Báo cáo
-        }
-
+        // 5. Tiện ích Bác sĩ khám bệnh (Chỉ Bác sĩ & Admin)
+        binding.cardActionDoctor.visibility = if (isAdmin || isDoctor) View.VISIBLE else View.GONE
         binding.cardActionDoctor.setOnClickListener {
             startActivity(Intent(requireContext(), DoctorStationActivity::class.java))
         }
 
-        binding.cardActionStaff.setOnClickListener {
-            startActivity(Intent(requireContext(), StaffSchedulingActivity::class.java))
+        // 6. Tiện ích Báo cáo & Thống kê (Chỉ Admin)
+        binding.cardActionReports.visibility = if (isAdmin) View.VISIBLE else View.GONE
+        binding.cardActionReports.setOnClickListener {
+            (activity as? MainActivity)?.selectNavigationTab(4) // Chuyển sang tab Báo cáo
         }
 
+        // 7. Tiện ích Quản trị tài khoản & Người dùng (Chỉ Admin)
+        binding.cardActionAdmin.visibility = if (isAdmin) View.VISIBLE else View.GONE
         binding.cardActionAdmin.setOnClickListener {
             startActivity(Intent(requireContext(), AdminAccountActivity::class.java))
         }
 
+        // 8. Tiện ích Lịch trực & Chấm công (Dành cho nhân viên phòng khám)
+        binding.cardActionStaff.visibility = if (isStaff) View.VISIBLE else View.GONE
+        binding.cardActionStaff.setOnClickListener {
+            startActivity(Intent(requireContext(), StaffSchedulingActivity::class.java))
+        }
+
+        // 9. Tiện ích Bảng giá dịch vụ y tế (Lễ tân, Bác sĩ, Dược sĩ, Thu ngân, Admin, Bệnh nhân)
+        binding.cardActionServices.visibility = if (isAdmin || isReceptionist || isDoctor || isCashier || isPharmacist || isPatient) View.VISIBLE else View.GONE
         binding.cardActionServices.setOnClickListener {
             startActivity(Intent(requireContext(), ClinicServicesActivity::class.java))
         }

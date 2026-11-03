@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">CarePlus Clinic</string>
+    <string name="slogan">Phòng khám đa khoa tiêu chuẩn quốc tế</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_appointments">Lịch hẹn</string>
+    <string name="nav_records">Bệnh án</string>
+    <string name="nav_reports">Báo cáo</string>
+    <string name="nav_profile">Tài khoản</string>
+
+    <!-- Auth -->
+    <string name="login_title">Đăng nhập tài khoản</string>
+    <string name="username_hint">Tên đăng nhập hoặc Email</string>
+    <string name="password_hint">Mật khẩu</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_change_server">Đổi IP máy chủ backend</string>
+    <string name="server_ip_hint">Địa chỉ Backend (mặc định: http://10.0.2.2:8080/)</string>
+    
+    <!-- Actions -->
+    <string name="book_appointment">Đặt lịch khám mới</string>
+    <string name="view_records">Tra cứu hồ sơ bệnh án</string>
+    <string name="view_prescriptions">Đơn thuốc của tôi</string>
+    <string name="view_billing">Viện phí và hóa đơn</string>
+    <string name="refresh">Làm mới dữ liệu</string>
+</resources>

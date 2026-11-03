@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CarePlus Brand Colors -->
+    <color name="primary">#087F8C</color>
+    <color name="primary_dark">#065A64</color>
+    <color name="primary_light">#E0F2F1</color>
+    <color name="accent_green">#10B981</color>
+    <color name="accent_green_light">#ECFDF5</color>
+    <color name="accent_orange">#F59E0B</color>
+    <color name="accent_orange_light">#FFFBEB</color>
+    <color name="accent_red">#EF4444</color>
+    <color name="accent_red_light">#FEF2F2</color>
+    <color name="accent_blue">#0284C7</color>
+    <color name="accent_blue_light">#F0F9FF</color>
+
+    <!-- Neutral Colors -->
+    <color name="background">#F8FAFC</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_muted">#94A3B8</color>
+    <color name="divider">#E2E8F0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

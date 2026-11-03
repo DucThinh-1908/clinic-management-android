@@ -101,6 +101,10 @@ class HomeFragment : Fragment() {
             (activity as? MainActivity)?.selectNavigationTab(4) // Chuyển sang tab Báo cáo
         }
 
+        binding.cardActionDoctor.setOnClickListener {
+            startActivity(Intent(requireContext(), DoctorStationActivity::class.java))
+        }
+
         binding.swipeRefreshHome.setOnRefreshListener {
             loadUpcomingAppointment()
         }

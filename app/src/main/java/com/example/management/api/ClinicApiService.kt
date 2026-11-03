@@ -308,4 +308,30 @@ interface ClinicApiService {
         @Query("startDate") startDate: String,
         @Query("endDate") endDate: String
     ): Response<CommonDiseaseReport>
+
+    // =========================================================================
+    // 7. PHÂN HỆ BÁC SĨ KHÁM BỆNH (DOCTOR EXAMINATION)
+    // =========================================================================
+    @POST("api/medical-examination/diagnosis")
+    suspend fun saveDiagnosis(
+        @Body request: SaveDiagnosisRequest
+    ): Response<MedicalRecordSummaryDto>
+
+    @GET("api/medical-examination/services")
+    suspend fun getAvailableClinicalServices(): Response<List<ClinicalServiceDto>>
+
+    @POST("api/medical-examination/lab-orders")
+    suspend fun orderClinicalServices(
+        @Body request: OrderLabServicesRequest
+    ): Response<LabOrderSummaryDto>
+
+    @POST("api/medical-examination/follow-up")
+    suspend fun scheduleFollowUp(
+        @Body request: ScheduleFollowUpRequest
+    ): Response<MedicalRecordSummaryDto>
+
+    @POST("api/medical-examination/complete")
+    suspend fun completeEncounter(
+        @Body request: CompleteEncounterRequest
+    ): Response<MedicalRecordSummaryDto>
 }

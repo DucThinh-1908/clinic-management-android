@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarDoctor"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        app:title="Phòng Khám Bác Sĩ (Doctor Station)"
+        app:titleTextColor="@color/white" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshDoctor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Thẻ bệnh nhân đang khám hiện tại -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BỆNH NHÂN ĐANG KHÁM HIỆN TẠI"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardActivePatient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvActivePatientName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Chưa có bệnh nhân nào"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvActivePatientSub"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="Chọn một bệnh nhân từ hàng chờ bên dưới để tiếp nhận"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvActiveTicketNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_badge_pending"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp"
+                                android:text="STT: --"
+                                android:textColor="@color/accent_orange"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Sinh hiệu bệnh nhân tóm tắt -->
+                        <LinearLayout
+                            android:id="@+id/llActivePatientVitals"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/bg_light"
+                            android:orientation="vertical"
+                            android:padding="10dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tvActiveVitalsText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Sinh hiệu: HA 120/80 mmHg | Mạch: 75 bpm | Nhiệt: 36.8°C | SpO2: 98% | BMI: 22.1"
+                                android:textColor="@color/primary_dark"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <!-- Các nút thao tác khám bệnh của Bác sĩ -->
+                        <LinearLayout
+                            android:id="@+id/llDoctorActions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <!-- Nhập chẩn đoán -->
+                            <Button
+                                android:id="@+id/btnDoctorDiagnosis"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_marginEnd="4dp"
+                                android:layout_weight="1"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                android:text="Chẩn đoán"
+                                android:textColor="@color/primary"
+                                android:textSize="11sp"
+                                app:cornerRadius="8dp" />
+
+                            <!-- Chỉ định CLS -->
+                            <Button
+                                android:id="@+id/btnDoctorOrderLab"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_marginHorizontal="2dp"
+                                android:layout_weight="1"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                android:text="Chỉ định CLS"
+                                android:textColor="@color/primary"
+                                android:textSize="11sp"
+                                app:cornerRadius="8dp" />
+
+                            <!-- Hoàn tất khám -->
+                            <Button
+                                android:id="@+id/btnDoctorComplete"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/accent_green"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                android:text="Kết thúc"
+                                android:textColor="@color/white"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="8dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Tiêu đề hàng chờ phòng khám -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="DANH SÁCH BỆNH NHÂN CHỜ KHÁM"
+                    android:textColor="@color/text_muted"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <!-- Trạng thái trống -->
+                <LinearLayout
+                    android:id="@+id/llEmptyDoctorQueue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phòng khám không có bệnh nhân chờ"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Khi lễ tân cấp số thứ tự, bệnh nhân sẽ xuất hiện tại đây"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- RecyclerView danh sách hàng chờ phòng khám -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDoctorQueue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

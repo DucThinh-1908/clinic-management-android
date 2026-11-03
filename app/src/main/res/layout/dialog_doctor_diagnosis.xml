@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ghi Nhận Chẩn Đoán &amp; ICD-10"
+        android:textColor="@color/primary_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDiagPatientSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Bệnh nhân: Nguyễn Văn A | Mã BN: BN-001"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/divider" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Triệu chứng lâm sàng:"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etSymptoms"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="Ví dụ: Ho khan 3 ngày, sốt nhẹ về chiều..."
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Chẩn đoán xác định:"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etFinalDiagnosis"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="Ví dụ: Viêm phế quản cấp"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Mã ICD-10:"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etIcd10"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="Ví dụ: J20.9 (Viêm phế quản cấp, không đặc hiệu)"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Lời dặn của bác sĩ:"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etDoctorAdvice"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="Uống nhiều nước ấm, tránh gió lạnh..."
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Hẹn ngày tái khám (YYYY-MM-DD):"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/etFollowUpDate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="Ví dụ: 2026-11-10"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancelDiag"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Đóng"
+            android:textColor="@color/text_secondary" />
+
+        <Button
+            android:id="@+id/btnSaveDiag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:text="Lưu chẩn đoán"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

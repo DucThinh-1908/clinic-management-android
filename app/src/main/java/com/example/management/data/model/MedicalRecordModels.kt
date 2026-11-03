@@ -29,3 +29,5 @@ data class VitalSignsItem(
     val weight: Double?,
     val bmi: Double?
 )
+
+typealias MedicalRecordSummaryDto = MedicalRecordItem

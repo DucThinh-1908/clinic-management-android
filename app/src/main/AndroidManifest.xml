@@ -67,6 +67,11 @@
             android:name=".ui.CashierStationActivity"
             android:exported="false" />
 
+        <!-- Phân hệ Bác sĩ: Khám bệnh, chẩn đoán, chỉ định cận lâm sàng -->
+        <activity
+            android:name=".ui.DoctorStationActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

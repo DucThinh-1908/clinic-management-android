@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         // Phân quyền hiển thị các tab trên Bottom Navigation Bar
         val navMenu = binding.bottomNav.menu
         navMenu.findItem(R.id.nav_home)?.isVisible = true
-        navMenu.findItem(R.id.nav_reception)?.isVisible = isAdmin || isReceptionist || isNurse || isPatient
+        navMenu.findItem(R.id.nav_reception)?.isVisible = isAdmin || isReceptionist || isNurse
         navMenu.findItem(R.id.nav_appointments)?.isVisible = isAdmin || isReceptionist || isDoctor || isPatient
         navMenu.findItem(R.id.nav_records)?.isVisible = isAdmin || isDoctor || isNurse || isReceptionist || isPatient
         navMenu.findItem(R.id.nav_reports)?.isVisible = isAdmin

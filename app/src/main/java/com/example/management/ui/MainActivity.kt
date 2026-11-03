@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             role.contains("ADMIN", true) -> "Quản trị viên"
             role.contains("MANAGER", true) -> "Quản lý"
             role.contains("RECEPTIONIST", true) -> "Lễ tân"
-            role.contains("CASHIER", true) -> "Thu ngân"
+            role.contains("CASHIER", true) || role.contains("THU_NGAN", true) -> "Thu ngân"
             else -> "Bệnh nhân"
         }
         binding.tvUserRoleBadge.text = "$roleLabel (${user?.username ?: ""})"

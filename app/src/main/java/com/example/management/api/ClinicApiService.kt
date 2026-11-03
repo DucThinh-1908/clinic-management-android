@@ -245,8 +245,46 @@ interface ClinicApiService {
     ): Response<List<PrescriptionItem>>
 
     // =========================================================================
-    // 5. VIỆN PHÍ & HÓA ĐƠN (BILLING)
+    // 5. VIỆN PHÍ & HÓA ĐƠN (BILLING & CASHIER)
     // =========================================================================
+    @GET("api/billing/candidates")
+    suspend fun getBillingCandidates(): Response<List<MedicalCandidateDto>>
+
+    @POST("api/billing/invoices")
+    suspend fun createInvoiceFromRecord(
+        @Body request: CreateInvoiceRequest
+    ): Response<InvoiceDetailDto>
+
+    @GET("api/billing/invoices")
+    suspend fun getInvoices(
+        @Query("status") status: String? = null,
+        @Query("query") query: String? = null
+    ): Response<List<InvoiceDetailDto>>
+
+    @GET("api/billing/invoices/{id}")
+    suspend fun getInvoiceDetail(
+        @Path("id") id: Long
+    ): Response<InvoiceDetailDto>
+
+    @POST("api/billing/invoices/{id}/apply-discount")
+    suspend fun applyInsuranceAndDiscount(
+        @Path("id") id: Long,
+        @Body request: ApplyInsuranceDiscountRequest
+    ): Response<InvoiceDetailDto>
+
+    @POST("api/billing/payments")
+    suspend fun processPayment(
+        @Body request: ProcessPaymentRequest
+    ): Response<PaymentResponseDto>
+
+    @POST("api/billing/refund")
+    suspend fun refundInvoice(
+        @Body request: RefundInvoiceRequest
+    ): Response<InvoiceDetailDto>
+
+    @GET("api/billing/stats")
+    suspend fun getBillingStats(): Response<BillingStatsDto>
+
     @GET("api/billing/invoices")
     suspend fun getAllInvoices(
         @Query("status") status: String? = null

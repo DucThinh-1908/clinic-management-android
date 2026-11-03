@@ -53,7 +53,15 @@ class HomeFragment : Fragment() {
             it.contains("PHARMACIST", true) || it.contains("DUOC_SI", true)
         } == true
 
+        val isCashier = user?.roles?.any {
+            it.contains("CASHIER", true) || it.contains("THU_NGAN", true)
+        } == true
+
         when {
+            isCashier -> {
+                binding.tvActionPrescriptionTitle.text = "Quầy Thu Ngân"
+                binding.tvActionPrescriptionSubtitle.text = "Thu tiền & Viện phí"
+            }
             isPharmacist -> {
                 binding.tvActionPrescriptionTitle.text = "Trạm Dược Sĩ"
                 binding.tvActionPrescriptionSubtitle.text = "Cấp phát thuốc & Kho dược"
@@ -74,6 +82,9 @@ class HomeFragment : Fragment() {
 
         binding.cardActionPrescriptions.setOnClickListener {
             when {
+                isCashier -> {
+                    startActivity(Intent(requireContext(), CashierStationActivity::class.java))
+                }
                 isPharmacist -> {
                     startActivity(Intent(requireContext(), PharmacyStationActivity::class.java))
                 }

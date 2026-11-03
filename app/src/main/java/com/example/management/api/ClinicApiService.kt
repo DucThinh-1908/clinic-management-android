@@ -334,4 +334,43 @@ interface ClinicApiService {
     suspend fun completeEncounter(
         @Body request: CompleteEncounterRequest
     ): Response<MedicalRecordSummaryDto>
+
+    // =========================================================================
+    // 8. PHÂN HỆ QUẢN LÝ NHÂN SỰ & LỊCH TRỰC (STAFF & SCHEDULING)
+    // =========================================================================
+    @GET("api/staff")
+    suspend fun getAllStaff(
+        @Query("search") search: String? = null,
+        @Query("status") status: String? = null
+    ): Response<List<StaffResponse>>
+
+    @GET("api/schedules")
+    suspend fun getStaffSchedules(
+        @Query("startDate") startDate: String? = null,
+        @Query("endDate") endDate: String? = null,
+        @Query("staffId") staffId: Long? = null
+    ): Response<List<ScheduleResponse>>
+
+    @POST("api/attendance/check-in")
+    suspend fun staffCheckIn(
+        @Query("actorUserId") actorUserId: Long,
+        @Body request: AttendanceCheckInRequest? = null
+    ): Response<Map<String, Any>>
+
+    @POST("api/attendance/check-out")
+    suspend fun staffCheckOut(
+        @Query("actorUserId") actorUserId: Long,
+        @Body request: AttendanceCheckOutRequest? = null
+    ): Response<Map<String, Any>>
+
+    @GET("api/attendance/my")
+    suspend fun getMyAttendance(
+        @Query("actorUserId") actorUserId: Long
+    ): Response<List<AttendanceResponse>>
+
+    @POST("api/leave-swap")
+    suspend fun createLeaveSwapRequest(
+        @Body request: LeaveSwapRequest,
+        @Query("actorUserId") actorUserId: Long
+    ): Response<Map<String, Any>>
 }

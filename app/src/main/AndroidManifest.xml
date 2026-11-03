@@ -72,6 +72,11 @@
             android:name=".ui.DoctorStationActivity"
             android:exported="false" />
 
+        <!-- Phân hệ Nhân sự: Lịch trực ca & Chấm công -->
+        <activity
+            android:name=".ui.StaffSchedulingActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

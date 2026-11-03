@@ -31,3 +31,11 @@ data class CreateAppointmentRequest(
 data class CancelAppointmentRequest(
     val reason: String
 )
+
+data class DoctorOptionDto(
+    val id: Long,
+    val fullName: String?,
+    val departmentId: Long?,
+    val departmentName: String?,
+    val roomNumber: String?
+)

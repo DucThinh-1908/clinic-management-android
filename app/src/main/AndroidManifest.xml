@@ -37,6 +37,16 @@
             android:name=".ui.BookAppointmentActivity"
             android:exported="false" />
 
+        <!-- Phân hệ Lễ tân: Tiếp nhận vãng lai & Cấp số thứ tự -->
+        <activity
+            android:name=".ui.WalkInReceptionActivity"
+            android:exported="false" />
+
+        <!-- Phân hệ Lễ tân: Tra cứu & Đăng ký hồ sơ bệnh nhân -->
+        <activity
+            android:name=".ui.PatientLookupActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -37,14 +37,111 @@ interface ClinicApiService {
 
     @POST("api/appointments")
     suspend fun createAppointment(
-        @Body request: CreateAppointmentRequest
+        @Body request: CreateAppointmentRequest,
+        @Query("userId") userId: Long? = null
     ): Response<AppointmentItem>
 
-    @POST("api/appointments/{id}/cancel")
+    @PUT("api/appointments/{id}/confirm")
+    suspend fun confirmAppointment(
+        @Path("id") id: Long,
+        @Query("userId") userId: Long? = null
+    ): Response<AppointmentItem>
+
+    @PUT("api/appointments/{id}/cancel")
     suspend fun cancelAppointment(
         @Path("id") id: Long,
-        @Body request: CancelAppointmentRequest
+        @Body request: CancelAppointmentRequest? = null,
+        @Query("userId") userId: Long? = null
     ): Response<AppointmentItem>
+
+    @PUT("api/appointments/{id}/no-show")
+    suspend fun markNoShow(
+        @Path("id") id: Long,
+        @Query("userId") userId: Long? = null
+    ): Response<AppointmentItem>
+
+    @GET("api/appointments/doctors")
+    suspend fun getAvailableDoctors(
+        @Query("departmentId") departmentId: Long? = null
+    ): Response<List<DoctorOptionDto>>
+
+    // =========================================================================
+    // 3. PHÂN HỆ TIẾP ĐÓN & HÀNG CHỜ PHÒNG KHÁM (QUEUE & RECEPTION)
+    // =========================================================================
+    @POST("api/queue/check-in")
+    suspend fun checkInAppointment(
+        @Body request: CheckInAppointmentRequest,
+        @Query("userId") userId: Long? = null
+    ): Response<QueueTicketResponse>
+
+    @POST("api/queue/walk-in")
+    suspend fun walkInReception(
+        @Body request: WalkInReceptionRequest,
+        @Query("userId") userId: Long? = null
+    ): Response<QueueTicketResponse>
+
+    @GET("api/queue/overview")
+    suspend fun getRoomQueueOverview(
+        @Query("date") date: String? = null
+    ): Response<List<RoomQueueOverviewDto>>
+
+    @GET("api/queue/stats")
+    suspend fun getQueueStats(
+        @Query("date") date: String? = null
+    ): Response<QueueStatsDto>
+
+    @GET("api/queue/room/{roomId}")
+    suspend fun getQueueByRoom(
+        @Path("roomId") roomId: Long,
+        @Query("status") status: String? = null
+    ): Response<List<QueueTicketResponse>>
+
+    @POST("api/queue/room/{roomId}/call-next")
+    suspend fun callNextPatientInRoom(
+        @Path("roomId") roomId: Long,
+        @Query("userId") userId: Long? = null
+    ): Response<QueueTicketResponse>
+
+    @PUT("api/queue/{ticketId}/skip")
+    suspend fun skipPatient(
+        @Path("ticketId") ticketId: Long,
+        @Body request: SkipTicketRequest? = null,
+        @Query("userId") userId: Long? = null
+    ): Response<QueueTicketResponse>
+
+    @PUT("api/queue/{ticketId}/transfer")
+    suspend fun transferPatient(
+        @Path("ticketId") ticketId: Long,
+        @Body request: TransferRoomRequest,
+        @Query("userId") userId: Long? = null
+    ): Response<QueueTicketResponse>
+
+    // =========================================================================
+    // 4. QUẢN LÝ & TRA CỨU HỒ SƠ BỆNH NHÂN (PATIENTS)
+    // =========================================================================
+    @GET("api/patients/search")
+    suspend fun searchPatients(
+        @Query("keyword") keyword: String? = null,
+        @Query("activeOnly") activeOnly: Boolean? = true
+    ): Response<List<PatientDetailDto>>
+
+    @GET("api/patients/{id}")
+    suspend fun getPatientById(
+        @Path("id") id: Long
+    ): Response<PatientDetailDto>
+
+    @POST("api/patients")
+    suspend fun createPatient(
+        @Body request: CreatePatientRequest,
+        @Query("requesterId") requesterId: Long? = null
+    ): Response<PatientDetailDto>
+
+    @PUT("api/patients/{id}/insurance")
+    suspend fun updatePatientInsurance(
+        @Path("id") id: Long,
+        @Body request: UpdateInsuranceRequest,
+        @Query("requesterId") requesterId: Long? = null
+    ): Response<PatientDetailDto>
 
     // =========================================================================
     // 3. HỒ SƠ BỆNH ÁN & KHÁM BỆNH (MEDICAL RECORDS)

@@ -153,7 +153,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Tiện ích 3: Đơn thuốc -->
+                <!-- Tiện ích 3: Tiếp đón & Hàng chờ -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardActionPrescriptions"
                     android:layout_width="0dp"
@@ -173,7 +173,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Toa thuốc"
+                            android:text="Bàn Tiếp Đón"
                             android:textColor="@color/primary_dark"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -182,7 +182,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Xem liều dùng &amp; hướng dẫn"
+                            android:text="Cấp STT &amp; hàng chờ"
                             android:textColor="@color/text_secondary"
                             android:textSize="11sp" />
                     </LinearLayout>

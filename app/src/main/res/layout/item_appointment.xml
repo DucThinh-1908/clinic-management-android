@@ -40,14 +40,23 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tvDoctor"
+            android:id="@+id/tvPatient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:text="Bệnh nhân: Nguyễn Văn A (0912345678)"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:text="Bác sĩ: BS. Nguyễn Văn An"
             android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tvDepartment"
@@ -62,7 +71,7 @@
             android:id="@+id/tvDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:text="Thời gian: 09:30 - 05/11/2026"
             android:textColor="@color/primary_dark"
             android:textSize="13sp"
@@ -72,10 +81,62 @@
             android:id="@+id/tvSymptoms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="3dp"
             android:text="Triệu chứng: Khám định kỳ tổng quát"
             android:textColor="@color/text_muted"
             android:textSize="12sp" />
 
+        <!-- Receptionist Actions Panel -->
+        <LinearLayout
+            android:id="@+id/layoutReceptionActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/accent_green"
+                android:text="Xác nhận"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnCheckIn"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/primary"
+                android:text="Tiếp nhận khám"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnNoShow"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/accent_coral"
+                android:text="Vắng mặt"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:backgroundTint="@color/text_muted"
+                android:text="Hủy"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

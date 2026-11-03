@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val homeFragment = HomeFragment()
+    private val receptionFragment = ReceptionFragment()
     private val appointmentsFragment = AppointmentsFragment()
     private val recordsFragment = MedicalRecordsFragment()
     private val reportsFragment = ReportsFragment()
@@ -50,6 +51,10 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(homeFragment)
                     true
                 }
+                R.id.nav_reception -> {
+                    replaceFragment(receptionFragment)
+                    true
+                }
                 R.id.nav_appointments -> {
                     replaceFragment(appointmentsFragment)
                     true
@@ -66,16 +71,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Mặc định mở HomeFragment
-        replaceFragment(homeFragment)
+        // Mặc định: nếu là lễ tân hoặc quản trị viên thì vào tab Tiếp đón, ngược lại vào Home
+        val isReceptionist = user?.roles?.any {
+            it.contains("RECEPTIONIST", true) || it.contains("LE_TAN", true)
+        } == true
+
+        if (isReceptionist) {
+            selectNavigationTab(1)
+        } else {
+            replaceFragment(homeFragment)
+        }
     }
 
     fun selectNavigationTab(index: Int) {
         when (index) {
             0 -> binding.bottomNav.selectedItemId = R.id.nav_home
-            1 -> binding.bottomNav.selectedItemId = R.id.nav_appointments
-            2 -> binding.bottomNav.selectedItemId = R.id.nav_records
-            3 -> binding.bottomNav.selectedItemId = R.id.nav_reports
+            1 -> binding.bottomNav.selectedItemId = R.id.nav_reception
+            2 -> binding.bottomNav.selectedItemId = R.id.nav_appointments
+            3 -> binding.bottomNav.selectedItemId = R.id.nav_records
+            4 -> binding.bottomNav.selectedItemId = R.id.nav_reports
         }
     }
 

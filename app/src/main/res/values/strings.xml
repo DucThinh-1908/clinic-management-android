@@ -4,6 +4,7 @@
     
     <!-- Navigation -->
     <string name="nav_home">Trang chủ</string>
+    <string name="nav_reception">Tiếp đón</string>
     <string name="nav_appointments">Lịch hẹn</string>
     <string name="nav_records">Bệnh án</string>
     <string name="nav_reports">Báo cáo</string>

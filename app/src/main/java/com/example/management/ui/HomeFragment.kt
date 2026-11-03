@@ -46,15 +46,15 @@ class HomeFragment : Fragment() {
         }
 
         binding.cardActionRecords.setOnClickListener {
-            (activity as? MainActivity)?.selectNavigationTab(1) // Chuyển sang tab Lịch hẹn/Bệnh án
+            (activity as? MainActivity)?.selectNavigationTab(3) // Chuyển sang tab Bệnh án
         }
 
         binding.cardActionPrescriptions.setOnClickListener {
-            Toast.makeText(requireContext(), "Bạn có thể xem toa thuốc trong chi tiết bệnh án", Toast.LENGTH_SHORT).show()
+            (activity as? MainActivity)?.selectNavigationTab(1) // Chuyển sang tab Tiếp đón & Hàng chờ
         }
 
         binding.cardActionReports.setOnClickListener {
-            (activity as? MainActivity)?.selectNavigationTab(3) // Chuyển sang tab Báo cáo
+            (activity as? MainActivity)?.selectNavigationTab(4) // Chuyển sang tab Báo cáo
         }
 
         binding.swipeRefreshHome.setOnRefreshListener {

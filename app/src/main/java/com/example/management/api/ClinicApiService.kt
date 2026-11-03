@@ -168,6 +168,27 @@ interface ClinicApiService {
     ): Response<QueueTicketResponse>
 
     // =========================================================================
+    // 6. PHÂN HỆ KỸ THUẬT VIÊN: CẬN LÂM SÀNG & XÉT NGHIỆM (LAB & TECHNICIAN)
+    // =========================================================================
+    @GET("api/medical-examination/lab-orders")
+    suspend fun getAllLabOrders(): Response<List<LabOrderSummaryDto>>
+
+    @GET("api/medical-examination/lab-orders/patient/{patientId}")
+    suspend fun getLabOrdersByPatient(
+        @Path("patientId") patientId: Long
+    ): Response<List<LabOrderSummaryDto>>
+
+    @GET("api/medical-examination/lab-orders/record/{recordId}")
+    suspend fun getLabOrdersByRecord(
+        @Path("recordId") recordId: Long
+    ): Response<List<LabOrderSummaryDto>>
+
+    @PUT("api/medical-examination/lab-results")
+    suspend fun updateLabResult(
+        @Body request: UpdateLabResultRequest
+    ): Response<LabResultItemDto>
+
+    // =========================================================================
     // 3. HỒ SƠ BỆNH ÁN & KHÁM BỆNH (MEDICAL RECORDS)
     // =========================================================================
     @GET("api/medical-records")

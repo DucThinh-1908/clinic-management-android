@@ -45,12 +45,20 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), BookAppointmentActivity::class.java))
         }
 
+        val isTechnician = user?.roles?.any {
+            it.contains("TECHNICIAN", true) || it.contains("KTV", true)
+        } == true
+
         binding.cardActionRecords.setOnClickListener {
             (activity as? MainActivity)?.selectNavigationTab(3) // Chuyển sang tab Bệnh án
         }
 
         binding.cardActionPrescriptions.setOnClickListener {
-            (activity as? MainActivity)?.selectNavigationTab(1) // Chuyển sang tab Tiếp đón & Hàng chờ
+            if (isTechnician) {
+                startActivity(Intent(requireContext(), TechnicianStationActivity::class.java))
+            } else {
+                (activity as? MainActivity)?.selectNavigationTab(1) // Chuyển sang tab Tiếp đón & Hàng chờ
+            }
         }
 
         binding.cardActionReports.setOnClickListener {

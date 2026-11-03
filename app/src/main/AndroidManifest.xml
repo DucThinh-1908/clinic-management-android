@@ -52,6 +52,11 @@
             android:name=".ui.RecordVitalSignsActivity"
             android:exported="false" />
 
+        <!-- Phân hệ Kỹ thuật viên: Cận lâm sàng & Xét nghiệm -->
+        <activity
+            android:name=".ui.TechnicianStationActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -82,6 +82,11 @@
             android:name=".ui.AdminAccountActivity"
             android:exported="false" />
 
+        <!-- Bảng giá dịch vụ y tế niêm yết -->
+        <activity
+            android:name=".ui.ClinicServicesActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

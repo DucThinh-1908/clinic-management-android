@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         val role = user?.roles?.firstOrNull() ?: "Người dùng"
         val roleLabel = when {
             role.contains("DOCTOR", true) -> "Bác sĩ"
+            role.contains("NURSE", true) || role.contains("DIEU_DUONG", true) -> "Điều dưỡng"
             role.contains("PHARMACIST", true) -> "Dược sĩ"
             role.contains("ADMIN", true) -> "Quản trị viên"
             role.contains("MANAGER", true) -> "Quản lý"
@@ -71,12 +72,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Mặc định: nếu là lễ tân hoặc quản trị viên thì vào tab Tiếp đón, ngược lại vào Home
-        val isReceptionist = user?.roles?.any {
-            it.contains("RECEPTIONIST", true) || it.contains("LE_TAN", true)
+        // Mặc định: nếu là lễ tân, điều dưỡng hoặc quản trị viên thì vào tab Tiếp đón, ngược lại vào Home
+        val isStaffWithQueueAccess = user?.roles?.any {
+            it.contains("RECEPTIONIST", true) || it.contains("LE_TAN", true) ||
+            it.contains("NURSE", true) || it.contains("DIEU_DUONG", true) ||
+            it.contains("ADMIN", true)
         } == true
 
-        if (isReceptionist) {
+        if (isStaffWithQueueAccess) {
             selectNavigationTab(1)
         } else {
             replaceFragment(homeFragment)

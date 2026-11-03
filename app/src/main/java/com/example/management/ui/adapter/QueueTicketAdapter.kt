@@ -11,7 +11,8 @@ import com.example.management.databinding.ItemQueueTicketBinding
 class QueueTicketAdapter(
     private var tickets: List<QueueTicketResponse> = emptyList(),
     private val onTransfer: (QueueTicketResponse) -> Unit,
-    private val onSkip: (QueueTicketResponse) -> Unit
+    private val onSkip: (QueueTicketResponse) -> Unit,
+    private val onRecordVitals: ((QueueTicketResponse) -> Unit)? = null
 ) : RecyclerView.Adapter<QueueTicketAdapter.QueueTicketViewHolder>() {
 
     fun submitList(newList: List<QueueTicketResponse>) {
@@ -66,6 +67,10 @@ class QueueTicketAdapter(
             val phoneText = ticket.patientPhone ?: "Không có SĐT"
             val channel = if (ticket.isAppointment == true) "Có lịch hẹn" else "Vãng lai"
             binding.tvPatientContact.text = "SĐT: $phoneText | $channel"
+
+            binding.btnRecordVitals.setOnClickListener {
+                onRecordVitals?.invoke(ticket)
+            }
 
             binding.btnTransferTicket.setOnClickListener {
                 onTransfer(ticket)

@@ -182,6 +182,18 @@ class ReceptionFragment : Fragment() {
             onSkip = { ticket ->
                 dialog?.dismiss()
                 showSkipDialog(ticket)
+            },
+            onRecordVitals = { ticket ->
+                dialog?.dismiss()
+                val intent = Intent(requireContext(), RecordVitalSignsActivity::class.java).apply {
+                    putExtra("EXTRA_PATIENT_ID", ticket.patientId ?: -1L)
+                    putExtra("EXTRA_PATIENT_NAME", ticket.patientName)
+                    putExtra("EXTRA_PATIENT_CODE", ticket.patientCode)
+                    putExtra("EXTRA_PATIENT_AGE", ticket.patientAge ?: 0)
+                    putExtra("EXTRA_PATIENT_GENDER", ticket.patientGender)
+                    putExtra("EXTRA_TICKET_ID", ticket.id)
+                }
+                startActivity(intent)
             }
         )
         rv.adapter = ticketAdapter

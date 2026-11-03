@@ -47,6 +47,11 @@
             android:name=".ui.PatientLookupActivity"
             android:exported="false" />
 
+        <!-- Phân hệ Điều dưỡng: Ghi nhận chỉ số sinh hiệu -->
+        <activity
+            android:name=".ui.RecordVitalSignsActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

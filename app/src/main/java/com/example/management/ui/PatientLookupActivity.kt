@@ -180,7 +180,17 @@ class PatientLookupActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Chi tiết hồ sơ bệnh nhân")
             .setMessage(msg)
-            .setPositiveButton("Tiếp nhận khám") { _, _ ->
+            .setPositiveButton("Đo sinh hiệu") { _, _ ->
+                val intent = Intent(this, RecordVitalSignsActivity::class.java).apply {
+                    putExtra("EXTRA_PATIENT_ID", patient.id)
+                    putExtra("EXTRA_PATIENT_NAME", patient.fullName)
+                    putExtra("EXTRA_PATIENT_CODE", patient.patientCode)
+                    putExtra("EXTRA_PATIENT_AGE", patient.age ?: 0)
+                    putExtra("EXTRA_PATIENT_GENDER", patient.gender)
+                }
+                startActivity(intent)
+            }
+            .setNeutralButton("Tiếp nhận khám") { _, _ ->
                 val intent = Intent(this, WalkInReceptionActivity::class.java).apply {
                     putExtra("EXTRA_PATIENT_ID", patient.id)
                     putExtra("EXTRA_FULL_NAME", patient.fullName)
@@ -191,9 +201,6 @@ class PatientLookupActivity : AppCompatActivity() {
                     putExtra("EXTRA_ADDRESS", patient.address)
                 }
                 startActivity(intent)
-            }
-            .setNeutralButton("Cập nhật BHYT") { _, _ ->
-                showUpdateInsuranceDialog(patient)
             }
             .setNegativeButton("Đóng", null)
             .show()

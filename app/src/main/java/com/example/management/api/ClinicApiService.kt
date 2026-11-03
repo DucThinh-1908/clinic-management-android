@@ -144,6 +144,30 @@ interface ClinicApiService {
     ): Response<PatientDetailDto>
 
     // =========================================================================
+    // 5. PHÂN HỆ ĐIỀU DƯỠNG: ĐO VÀ THEO DÕI SINH HIỆU (VITAL SIGNS - NURSE)
+    // =========================================================================
+    @POST("api/medical-examination/vital-signs")
+    suspend fun recordVitalSigns(
+        @Body request: VitalSignRequest
+    ): Response<VitalSignResponse>
+
+    @GET("api/medical-examination/vital-signs/patient/{patientId}")
+    suspend fun getLatestVitalSigns(
+        @Path("patientId") patientId: Long
+    ): Response<VitalSignResponse>
+
+    @GET("api/medical-examination/vital-signs/history/{patientId}")
+    suspend fun getVitalSignsHistory(
+        @Path("patientId") patientId: Long
+    ): Response<List<VitalSignResponse>>
+
+    @POST("api/queue/{ticketId}/start")
+    suspend fun startServing(
+        @Path("ticketId") ticketId: Long,
+        @Query("userId") userId: Long? = null
+    ): Response<QueueTicketResponse>
+
+    // =========================================================================
     // 3. HỒ SƠ BỆNH ÁN & KHÁM BỆNH (MEDICAL RECORDS)
     // =========================================================================
     @GET("api/medical-records")

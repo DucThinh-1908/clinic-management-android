@@ -207,8 +207,35 @@ interface ClinicApiService {
     ): Response<MedicalRecordItem>
 
     // =========================================================================
-    // 4. TOA THUỐC & DƯỢC PHẨM (PHARMACY)
+    // 4. TOA THUỐC & DƯỢC PHẨM (PHARMACY - PHARMACIST)
     // =========================================================================
+    @GET("api/pharmacy/prescriptions")
+    suspend fun getPharmacyPrescriptions(
+        @Query("status") status: String? = null
+    ): Response<List<PrescriptionResponse>>
+
+    @GET("api/pharmacy/prescriptions/{id}")
+    suspend fun getPrescriptionById(
+        @Path("id") id: Long
+    ): Response<PrescriptionResponse>
+
+    @POST("api/pharmacy/dispensations")
+    suspend fun dispensePrescription(
+        @Body request: DispensePrescriptionRequest
+    ): Response<DispensationResponse>
+
+    @GET("api/pharmacy/medicines")
+    suspend fun getMedicineCatalog(
+        @Query("query") query: String? = null,
+        @Query("categoryId") categoryId: Long? = null
+    ): Response<List<MedicineDetailDto>>
+
+    @GET("api/pharmacy/alerts")
+    suspend fun getStockAlerts(
+        @Query("lowStockThreshold") lowStockThreshold: Int? = null,
+        @Query("nearExpiryDays") nearExpiryDays: Int? = null
+    ): Response<StockAlertOverviewDto>
+
     @GET("api/pharmacy/prescriptions")
     suspend fun getAllPrescriptions(): Response<List<PrescriptionItem>>
 

@@ -49,15 +49,40 @@ class HomeFragment : Fragment() {
             it.contains("TECHNICIAN", true) || it.contains("KTV", true)
         } == true
 
+        val isPharmacist = user?.roles?.any {
+            it.contains("PHARMACIST", true) || it.contains("DUOC_SI", true)
+        } == true
+
+        when {
+            isPharmacist -> {
+                binding.tvActionPrescriptionTitle.text = "Trạm Dược Sĩ"
+                binding.tvActionPrescriptionSubtitle.text = "Cấp phát thuốc & Kho dược"
+            }
+            isTechnician -> {
+                binding.tvActionPrescriptionTitle.text = "Cận Lâm Sàng"
+                binding.tvActionPrescriptionSubtitle.text = "Nhập kết quả xét nghiệm"
+            }
+            else -> {
+                binding.tvActionPrescriptionTitle.text = "Bàn Tiếp Đón"
+                binding.tvActionPrescriptionSubtitle.text = "Cấp STT & hàng chờ"
+            }
+        }
+
         binding.cardActionRecords.setOnClickListener {
             (activity as? MainActivity)?.selectNavigationTab(3) // Chuyển sang tab Bệnh án
         }
 
         binding.cardActionPrescriptions.setOnClickListener {
-            if (isTechnician) {
-                startActivity(Intent(requireContext(), TechnicianStationActivity::class.java))
-            } else {
-                (activity as? MainActivity)?.selectNavigationTab(1) // Chuyển sang tab Tiếp đón & Hàng chờ
+            when {
+                isPharmacist -> {
+                    startActivity(Intent(requireContext(), PharmacyStationActivity::class.java))
+                }
+                isTechnician -> {
+                    startActivity(Intent(requireContext(), TechnicianStationActivity::class.java))
+                }
+                else -> {
+                    (activity as? MainActivity)?.selectNavigationTab(1) // Chuyển sang tab Tiếp đón & Hàng chờ
+                }
             }
         }
 

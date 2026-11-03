@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             role.contains("DOCTOR", true) -> "Bác sĩ"
             role.contains("NURSE", true) || role.contains("DIEU_DUONG", true) -> "Điều dưỡng"
             role.contains("TECHNICIAN", true) || role.contains("KTV", true) -> "Kỹ thuật viên"
-            role.contains("PHARMACIST", true) -> "Dược sĩ"
+            role.contains("PHARMACIST", true) || role.contains("DUOC_SI", true) -> "Dược sĩ"
             role.contains("ADMIN", true) -> "Quản trị viên"
             role.contains("MANAGER", true) -> "Quản lý"
             role.contains("RECEPTIONIST", true) -> "Lễ tân"

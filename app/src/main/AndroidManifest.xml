@@ -57,6 +57,11 @@
             android:name=".ui.TechnicianStationActivity"
             android:exported="false" />
 
+        <!-- Phân hệ Dược sĩ: Trạm cấp phát thuốc & Kho dược -->
+        <activity
+            android:name=".ui.PharmacyStationActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

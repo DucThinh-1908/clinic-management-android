@@ -15,12 +15,22 @@ class SessionManager(context: Context) {
         private const val KEY_USER = "key_user_info"
         private const val KEY_BASE_URL = "key_base_url"
         
-        // Mặc định: IP Wi-Fi máy tính để chạy được cả trên điện thoại thật lẫn máy ảo
-        const val DEFAULT_BASE_URL = "http://192.168.0.101:8080/"
+        // Mặc định: IP Wi-Fi máy tính hiện tại (192.168.0.100)
+        const val DEFAULT_BASE_URL = "http://192.168.0.100:8080/"
     }
 
     var baseUrl: String
-        get() = prefs.getString(KEY_BASE_URL, DEFAULT_BASE_URL) ?: DEFAULT_BASE_URL
+        get() {
+            val saved = prefs.getString(KEY_BASE_URL, DEFAULT_BASE_URL) ?: DEFAULT_BASE_URL
+            // Tự động chuyển đổi nếu máy từng lưu IP cũ 192.168.0.101
+            return if (saved.contains("192.168.0.101")) {
+                val updated = saved.replace("192.168.0.101", "192.168.0.100")
+                prefs.edit().putString(KEY_BASE_URL, updated).apply()
+                updated
+            } else {
+                saved
+            }
+        }
         set(value) {
             val formatted = if (value.endsWith("/")) value else "$value/"
             prefs.edit().putString(KEY_BASE_URL, formatted).apply()

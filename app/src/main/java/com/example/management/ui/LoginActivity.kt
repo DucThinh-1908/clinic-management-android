@@ -88,14 +88,45 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showChangeServerDialog() {
         val session = RetrofitClient.getSessionManager(this)
+        val options = arrayOf(
+            "Điện thoại thật (Wi-Fi hiện tại): http://192.168.0.100:8080/",
+            "Máy ảo Android Studio Emulator: http://10.0.2.2:8080/",
+            "Localhost: http://127.0.0.1:8080/",
+            "Nhập địa chỉ IP tùy chỉnh..."
+        )
+        val urls = arrayOf(
+            "http://192.168.0.100:8080/",
+            "http://10.0.2.2:8080/",
+            "http://127.0.0.1:8080/",
+            ""
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle("Chọn máy chủ backend")
+            .setItems(options) { _, which ->
+                if (which == 3) {
+                    showCustomIpInputDialog()
+                } else {
+                    session.baseUrl = urls[which]
+                    RetrofitClient.resetService()
+                    updateServerText()
+                    Toast.makeText(this, "Đã chọn máy chủ: ${urls[which]}", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Đóng", null)
+            .show()
+    }
+
+    private fun showCustomIpInputDialog() {
+        val session = RetrofitClient.getSessionManager(this)
         val input = EditText(this).apply {
             setText(session.baseUrl)
             setSelection(text.length)
         }
 
         AlertDialog.Builder(this)
-            .setTitle("Cấu hình IP Backend")
-            .setMessage("Nhập địa chỉ máy chủ backend:\n- Máy ảo: http://10.0.2.2:8080/\n- Điện thoại thật: http://<IP_MÁY_TÍNH>:8080/")
+            .setTitle("Nhập IP máy chủ tùy chỉnh")
+            .setMessage("Ví dụ: http://192.168.0.100:8080/")
             .setView(input)
             .setPositiveButton("Lưu") { _, _ ->
                 val newUrl = input.text.toString().trim()
@@ -103,7 +134,7 @@ class LoginActivity : AppCompatActivity() {
                     session.baseUrl = newUrl
                     RetrofitClient.resetService()
                     updateServerText()
-                    Toast.makeText(this, "Đã cập nhật máy chủ!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Đã cập nhật máy chủ: $newUrl", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Hủy", null)

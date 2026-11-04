@@ -89,7 +89,7 @@ class PatientLookupActivity : AppCompatActivity() {
                     }
                 } else {
                     binding.tvEmptyPatients.visibility = View.VISIBLE
-                    binding.tvEmptyPatients.text = "Không thể tải dữ liệu bệnh nhân"
+                    binding.tvEmptyPatients.text = "Không thể tải dữ liệu bệnh nhân (Mã: ${res.code()})"
                 }
             } catch (e: Exception) {
                 binding.progressBarPatients.visibility = View.GONE

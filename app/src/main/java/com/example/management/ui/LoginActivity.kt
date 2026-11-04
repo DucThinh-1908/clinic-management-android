@@ -42,6 +42,43 @@ class LoginActivity : AppCompatActivity() {
         binding.btnChangeServer.setOnClickListener {
             showChangeServerDialog()
         }
+
+        binding.btnSampleAccounts.setOnClickListener {
+            showSampleAccountsDialog()
+        }
+    }
+
+    private fun showSampleAccountsDialog() {
+        val accounts = arrayOf(
+            "Quản trị viên (admin)",
+            "Lễ tân tiếp đón (receptionist)",
+            "Bác sĩ khám bệnh (doctor_an)",
+            "Điều dưỡng sinh hiệu (nurse_lan)",
+            "Kỹ thuật viên xét nghiệm (tech_duc)",
+            "Dược sĩ cấp thuốc (pharm_nga)",
+            "Thu ngân viện phí (cashier_thuy)",
+            "Bệnh nhân xem hồ sơ (patient_nam)"
+        )
+        val usernames = arrayOf(
+            "admin",
+            "receptionist",
+            "doctor_an",
+            "nurse_lan",
+            "tech_duc",
+            "pharm_nga",
+            "cashier_thuy",
+            "patient_nam"
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle("Chọn tài khoản mẫu (Mật khẩu: 123456)")
+            .setItems(accounts) { _, which ->
+                binding.etUsername.setText(usernames[which])
+                binding.etPassword.setText("123456")
+                Toast.makeText(this, "Đã điền tài khoản: ${usernames[which]}", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Đóng", null)
+            .show()
     }
 
     private fun updateServerText() {

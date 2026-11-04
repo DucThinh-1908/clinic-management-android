@@ -52,6 +52,18 @@ object RetrofitClient {
                         requestBuilder.addHeader("Authorization", "Bearer $token")
                     }
 
+                    // Tự động gắn header định danh người dùng cho toàn bộ hệ thống
+                    val currentUser = session.getUser()
+                    if (currentUser != null) {
+                        val uid = currentUser.id.toString()
+                        requestBuilder.addHeader("X-Requester-Id", uid)
+                        requestBuilder.addHeader("X-User-Id", uid)
+                        requestBuilder.addHeader("X-Actor-User-Id", uid)
+                        currentUser.roles?.firstOrNull()?.let { role ->
+                            requestBuilder.addHeader("X-User-Role", role)
+                        }
+                    }
+
                     requestBuilder.addHeader("Accept", "application/json")
                     chain.proceed(requestBuilder.build())
                 }

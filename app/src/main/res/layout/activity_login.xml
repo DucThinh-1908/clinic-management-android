@@ -178,5 +178,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnChangeServer" />
 
+        <TextView
+            android:id="@+id/btnSampleAccounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            android:background="?selectableItemBackground"
+            android:padding="8dp"
+            android:text="Danh sách tài khoản mẫu (Tất cả vai trò)"
+            android:textColor="@color/primary_dark"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCurrentServer" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -93,18 +93,36 @@ class DoctorStationActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                // Lấy danh sách hàng chờ phòng khám (phòng số 1 mặc định hoặc theo bác sĩ)
+                // Lấy danh sách hàng chờ phòng khám (phòng số 1 mặc định)
+                var tickets: List<com.example.management.data.model.QueueTicketResponse> = emptyList()
                 val res = api.getQueueByRoom(1L, "WAITING")
                 if (res.isSuccessful) {
-                    val tickets = res.body() ?: emptyList()
-                    queueTickets = tickets.filter { it.status == "WAITING" || it.status == "CALLED" }
-                    queueAdapter.submitList(queueTickets)
+                    tickets = res.body() ?: emptyList()
+                } else {
+                    Toast.makeText(this@DoctorStationActivity, "Không thể tải hàng chờ phòng 1 (Mã: ${res.code()})", Toast.LENGTH_SHORT).show()
+                }
 
-                    if (queueTickets.isEmpty()) {
-                        binding.llEmptyDoctorQueue.visibility = View.VISIBLE
-                    } else {
-                        binding.llEmptyDoctorQueue.visibility = View.GONE
+                // Nếu phòng 1 chưa có bệnh nhân chờ, kiểm tra tổng quan các phòng khám khác
+                if (tickets.isEmpty()) {
+                    val overviewRes = api.getRoomQueueOverview()
+                    if (overviewRes.isSuccessful && !overviewRes.body().isNullOrEmpty()) {
+                        val activeRoom = overviewRes.body()!!.firstOrNull { it.waitingCount > 0 }
+                        if (activeRoom != null) {
+                            val altRes = api.getQueueByRoom(activeRoom.roomId, "WAITING")
+                            if (altRes.isSuccessful) {
+                                tickets = altRes.body() ?: emptyList()
+                            }
+                        }
                     }
+                }
+
+                queueTickets = tickets.filter { it.status == "WAITING" || it.status == "CALLED" }
+                queueAdapter.submitList(queueTickets)
+
+                if (queueTickets.isEmpty()) {
+                    binding.llEmptyDoctorQueue.visibility = View.VISIBLE
+                } else {
+                    binding.llEmptyDoctorQueue.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@DoctorStationActivity, "Lỗi tải hàng chờ: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()

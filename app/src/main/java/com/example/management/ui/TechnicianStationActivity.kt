@@ -128,7 +128,7 @@ class TechnicianStationActivity : AppCompatActivity() {
                     applyFilterAndSearch()
                 } else {
                     binding.tvEmptyTech.visibility = View.VISIBLE
-                    binding.tvEmptyTech.text = "Không thể tải danh sách chỉ định cận lâm sàng"
+                    binding.tvEmptyTech.text = "Không thể tải danh sách chỉ định cận lâm sàng (Mã: ${res.code()})"
                 }
             } catch (e: Exception) {
                 binding.progressBarTech.visibility = View.GONE

@@ -59,7 +59,10 @@ class MedicalRecordsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val isStaff = user.roles?.any { it.contains("DOCTOR", true) || it.contains("ADMIN", true) || it.contains("MANAGER", true) } == true
+                val isStaff = user.roles?.any {
+                    it.contains("DOCTOR", true) || it.contains("ADMIN", true) || it.contains("MANAGER", true) ||
+                            it.contains("NURSE", true) || it.contains("RECEPTIONIST", true)
+                } == true
                 val response = if (isStaff) {
                     api.getAllMedicalRecords()
                 } else {
@@ -75,13 +78,13 @@ class MedicalRecordsFragment : Fragment() {
                     binding.tvEmptyRecords.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                 } else {
                     binding.tvEmptyRecords.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), "Không thể tải hồ sơ bệnh án", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Không thể tải hồ sơ bệnh án (Mã: ${response.code()})", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 binding.progressBarRecords.visibility = View.GONE
                 binding.swipeRefreshRecords.isRefreshing = false
                 binding.tvEmptyRecords.visibility = View.VISIBLE
-                Toast.makeText(requireContext(), "Lỗi mạng: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Lỗi kết nối: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }

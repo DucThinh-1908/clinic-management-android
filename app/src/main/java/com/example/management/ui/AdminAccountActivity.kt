@@ -79,7 +79,7 @@ class AdminAccountActivity : AppCompatActivity() {
                     allAccounts = res.body() ?: emptyList()
                     accountAdapter.submitList(allAccounts)
                 } else {
-                    Toast.makeText(this@AdminAccountActivity, "Không thể tải danh sách tài khoản", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AdminAccountActivity, "Không thể tải danh sách tài khoản (Mã: ${res.code()})", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@AdminAccountActivity, "Lỗi: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()

@@ -102,7 +102,7 @@ class AppointmentsFragment : Fragment() {
                     binding.tvEmptyAppointments.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                 } else {
                     binding.tvEmptyAppointments.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), "Không thể tải lịch hẹn", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Không thể tải lịch hẹn (Mã: ${response.code()})", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 binding.progressBarAppointments.visibility = View.GONE
